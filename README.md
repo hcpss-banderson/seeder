@@ -205,6 +205,12 @@ function _MYMODULE_set_field_start(EntityInterface $entity) {
 }
 ```
 
+### Execute the seed.
+
+```
+$ drush seeder:seed
+```
+
 ### Extend this module.
 
 This module defines 3 plugin types:
@@ -471,6 +477,7 @@ field. Above we referenced a non-existant plugin called corrosponding_entity.
 Let's create that value generator. It will set the value of the field to the
 corosponging entity.
 
+```
 <?php
 // MYMODULE/src/Plugin/ValueGenerator/CorrospondingEntity.php
 

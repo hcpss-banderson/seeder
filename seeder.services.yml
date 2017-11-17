@@ -1,0 +1,13 @@
+services:
+    
+  plugin.manager.value_generator:
+    class: \Drupal\seeder\ValueGeneratorManager
+    parent: default_plugin_manager
+    
+  plugin.manager.seeder:
+    class: \Drupal\seeder\SeederManager
+    parent: default_plugin_manager
+
+  plugin.manager.entity_generator:
+    class: \Drupal\seeder\EntityGeneratorManager
+    parent: default_plugin_manager

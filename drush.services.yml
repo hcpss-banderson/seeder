@@ -1,0 +1,5 @@
+services:
+  seeder.commands:
+    class: \Drupal\seeder\Commands\SeederCommands
+    tags:
+      - { name: drush.command }

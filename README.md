@@ -477,7 +477,7 @@ field. Above we referenced a non-existant plugin called corrosponding_entity.
 Let's create that value generator. It will set the value of the field to the
 corosponging entity.
 
-```
+```php
 <?php
 // MYMODULE/src/Plugin/ValueGenerator/CorrospondingEntity.php
 

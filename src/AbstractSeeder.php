@@ -30,5 +30,5 @@ abstract class AbstractSeeder implements SeederInterface {
    * {@inheritDoc}
    * @see \Drupal\seeder\SeederInterface::seed()
    */
-  abstract public function seed();
+  abstract public function seed() : EntityGeneratorResultInterface;
 }

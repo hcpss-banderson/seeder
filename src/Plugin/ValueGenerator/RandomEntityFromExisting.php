@@ -21,9 +21,11 @@ class RandomEntityFromExisting extends AbstractValueGenerator {
    */
   public function generate() {    
     $query = \Drupal::entityQuery($this->value['entity_type']);
+    $entityTypeDefinition = \Drupal::entityTypeManager()
+      ->getDefinition($this->value['entity_type']);  
     
-    if (isset($this->value['bundle']) && $this->value['bundle']) {
-      $query->condition('type', $this->value['bundle']);
+    if (isset($this->value['entity_subtype']) && $this->value['entity_subtype']) {
+      $query->condition($entityTypeDefinition->getKey('bundle'), $this->value['entity_subtype']);
     }
     
     if (isset($this->value['conditions'])) {

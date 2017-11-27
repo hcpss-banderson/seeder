@@ -24,6 +24,13 @@ abstract class AbstractValueGenerator implements ValueGeneratorInterface {
   protected $value;
   
   /**
+   * Store precalculated values
+   * 
+   * @var array
+   */
+  protected $precalculatedValues = [];
+  
+  /**
    * Constructor implementation.
    * 
    * @param array $configuration
@@ -33,6 +40,10 @@ abstract class AbstractValueGenerator implements ValueGeneratorInterface {
   public function __construct($configuration, $plugin_id, $plugin_definition) {
     $this->entity = $configuration['entity'];
     $this->value = $configuration['config'];
+    
+    if (!empty($configuration['precalculated_values'])) {
+      $this->precalculatedValues = $configuration['precalculated_values'];
+    }
   }
   
   /**

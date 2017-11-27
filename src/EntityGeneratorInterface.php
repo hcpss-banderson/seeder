@@ -10,5 +10,5 @@ interface EntityGeneratorInterface {
   /**
    * Generate an entity.
    */
-  public function generate();
+  public function generate(): EntityGeneratorResultInterface;
 }

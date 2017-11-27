@@ -10,5 +10,5 @@ interface SeederInterface {
   /**
    * Perform the seed.
    */
-  public function seed();
+  public function seed() : EntityGeneratorResultInterface;
 }

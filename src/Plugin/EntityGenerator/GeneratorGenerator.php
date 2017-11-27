@@ -3,6 +3,8 @@
 namespace Drupal\seeder\Plugin\EntityGenerator;
 
 use Drupal\seeder\AbstractEntityGenerator;
+use Drupal\seeder\EntityGeneratorResult;
+use Drupal\seeder\EntityGeneratorResultInterface;
 
 /**
  * Generator for generating entities.
@@ -74,12 +76,16 @@ class GeneratorGenerator extends AbstractEntityGenerator {
    * {@inheritDoc}
    * @see AbstractEntityGenerator::generate()
    */
-  public function generate() {
+  public function generate() : EntityGeneratorResultInterface {
     $numEntities = rand($this->min, $this->max);
     $pluginType = \Drupal::service('plugin.manager.value_generator');
+    $key = $this->entityTypeDefinition->getKey('bundle');
     
+    $result = new EntityGeneratorResult($this->entityType, $this->entitySubtype);
     for ($i = 0; $i <= $numEntities; $i++) {
-      $entity = $this->entityClass::create(['type' => $this->bundle]);
+      $entity = $this->entityTypeDefinition->getClass()::create([
+        $key => $this->entitySubtype,
+      ]);
       
       foreach ($this->fieldConfig as $field => $config) {
         if (!$this->hasValue($config)) {
@@ -89,12 +95,16 @@ class GeneratorGenerator extends AbstractEntityGenerator {
         $value = $pluginType->createInstance($config['plugin'], [
           'entity' => $entity,
           'config' => $config['value'],
+          'precalculated_values' => $this->precalculatedValues,
         ])->generate();
         
         $entity->set($field, $value);
       }
       
       $entity->save();
+      $result->addEntityId($entity->id());
     }
+    
+    return $result;
   }
 }

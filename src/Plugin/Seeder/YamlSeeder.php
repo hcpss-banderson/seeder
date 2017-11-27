@@ -4,6 +4,7 @@ namespace Drupal\seeder\Plugin\Seeder;
 
 use Drupal\seeder\AbstractSeeder;
 use Drupal\Component\Serialization\Yaml;
+use Drupal\seeder\EntityGeneratorResultInterface;
 
 /**
  * Seeder for data stored in yaml files.
@@ -41,12 +42,12 @@ class YamlSeeder extends AbstractSeeder {
    * {@inheritDoc}
    * @see AbstractSeeder::seed()
    */
-  public function seed() {
+  public function seed() : EntityGeneratorResultInterface {    
     $data       = Yaml::decode(file_get_contents($this->dataPath));
     $pluginType = \Drupal::service('plugin.manager.entity_generator');
     $pluginName = $data['plugin']['name'];
     $plugin     = $pluginType->createInstance($pluginName, $data);
     
-    $plugin->generate();
+    return $plugin->generate();
   }
 }
